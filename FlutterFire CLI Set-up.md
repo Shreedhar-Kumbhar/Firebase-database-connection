@@ -1,5 +1,10 @@
 FlutterFire CLI Installation and Setup (Windows)
 
+**First download firebase CLI from official webiste:**
+
+https://firebase.google.com/docs/cli#install-cli-windows
+
+
 1. Install FlutterFire CLI
 
 dart pub global activate flutterfire_cli
