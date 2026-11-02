@@ -83,7 +83,7 @@ In the terminal output, find:
 Variant: debug
 Config: debug
 
-SHA1: XX:XX:XX:XX:XX:XX:XX:XX
+SHA1: c4:5e:d7:bd:83:63:4b:17:fe:77:48:59:c2:94:03:e5:d6:f0:**:**
 ```
 
 Copy the complete SHA1 value.
