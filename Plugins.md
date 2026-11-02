@@ -3,7 +3,7 @@
 **Authentication**	
 firebase_auth	
 
-**Realtime Database	**
+**Realtime Database**
 firebase_database
 
 **Cloud Firestore**	
