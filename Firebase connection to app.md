@@ -137,13 +137,6 @@ build/app/outputs/flutter-apk/app-release.apk
 - Do not use public database security rules for production applications.
 - The commands above configure and build the project; CRUD functionality must also be implemented in the Flutter application code.
 
-## Official Documentation
-
-For complete installation and configuration guidance, refer to the following official documentation:
-
-- [Firebase CLI Installation](https://firebase.google.com/docs/cli#install-cli-windows)
-- [FlutterFire Configuration](https://firebase.google.com/docs/flutter/setup)
-- [Firebase Console](https://console.firebase.google.com/)
 
 ---
 
