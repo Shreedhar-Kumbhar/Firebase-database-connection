@@ -6,7 +6,5 @@
    // Replace this with your Firebase Realtime Database URL.
 const String databaseURL =
     'https://connect-firstore-default-rtdb.asia-southeast1.firebasedatabase.app/';
-   
-  **Type these commands in terminal of Visual studio software** 
   
 3. flutter build apk --release.
