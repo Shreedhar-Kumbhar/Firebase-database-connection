@@ -1,13 +1,13 @@
-**Product	Plugin name:**
+**Important Plugin name:**
 
-**Authentication**	
+**Authentication:**	
 firebase_auth	
 
-**Realtime Database**
+**Realtime Database:**
 firebase_database
 
-**Cloud Firestore**	
+**Cloud Firestore:**	
 cloud_firestore	
 
-**Cloud Storage**	
+**Cloud Storage:**	
 firebase_storage	
