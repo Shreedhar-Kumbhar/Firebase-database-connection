@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_database/firebase_database.dart';
@@ -252,128 +253,163 @@ class StudentHomePage extends StatelessWidget {
 // ADD / EDIT STUDENT FORM
 // ------------------------------------
 
+
 Future<Map<String, String>?> showStudentForm(
   BuildContext context, {
   Map<String, dynamic>? existing,
-}) async {
-  final formKey = GlobalKey<FormState>();
-
-  final nameController = TextEditingController(
-    text: existing?['name']?.toString() ?? '',
-  );
-
-  final rollController = TextEditingController(
-    text: existing?['rollNo']?.toString() ?? '',
-  );
-
-  final courseController = TextEditingController(
-    text: existing?['course']?.toString() ?? '',
-  );
-
-  final emailController = TextEditingController(
-    text: existing?['email']?.toString() ?? '',
-  );
-
-  final result = await showDialog<Map<String, String>>(
+}) {
+  return showDialog<Map<String, String>>(
     context: context,
     builder: (dialogContext) {
-      return AlertDialog(
-        title: Text(
-          existing == null ? 'Add Student' : 'Edit Student',
-        ),
-
-        content: SingleChildScrollView(
-          child: Form(
-            key: formKey,
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                TextFormField(
-                  controller: nameController,
-                  decoration: const InputDecoration(
-                    labelText: 'Student Name',
-                    prefixIcon: Icon(Icons.person),
-                  ),
-                  validator: (value) =>
-                      value == null || value.trim().isEmpty
-                          ? 'Enter student name'
-                          : null,
-                ),
-
-                TextFormField(
-                  controller: rollController,
-                  keyboardType: TextInputType.number,
-                  decoration: const InputDecoration(
-                    labelText: 'Roll Number',
-                    prefixIcon: Icon(Icons.numbers),
-                  ),
-                  validator: (value) =>
-                      value == null || value.trim().isEmpty
-                          ? 'Enter roll number'
-                          : null,
-                ),
-
-                TextFormField(
-                  controller: courseController,
-                  decoration: const InputDecoration(
-                    labelText: 'Course',
-                    prefixIcon: Icon(Icons.school),
-                  ),
-                  validator: (value) =>
-                      value == null || value.trim().isEmpty
-                          ? 'Enter course'
-                          : null,
-                ),
-
-                TextFormField(
-                  controller: emailController,
-                  keyboardType: TextInputType.emailAddress,
-                  decoration: const InputDecoration(
-                    labelText: 'Email',
-                    prefixIcon: Icon(Icons.email),
-                  ),
-                  validator: (value) {
-                    if (value == null ||
-                        !RegExp(r'^[^@\s]+@[^@\s]+\.[^@\s]+$')
-                            .hasMatch(value.trim())) {
-                      return 'Enter a valid email';
-                    }
-                    return null;
-                  },
-                ),
-              ],
-            ),
-          ),
-        ),
-
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(dialogContext),
-            child: const Text('Cancel'),
-          ),
-
-          ElevatedButton(
-            onPressed: () {
-              if (formKey.currentState!.validate()) {
-                Navigator.pop(dialogContext, {
-                  'name': nameController.text.trim(),
-                  'rollNo': rollController.text.trim(),
-                  'course': courseController.text.trim(),
-                  'email': emailController.text.trim(),
-                });
-              }
-            },
-            child: const Text('Save'),
-          ),
-        ],
-      );
+      return StudentFormDialog(existing: existing);
     },
   );
+}
 
-  nameController.dispose();
-  rollController.dispose();
-  courseController.dispose();
-  emailController.dispose();
+// Separate StatefulWidget for the Student Form
 
-  return result;
+class StudentFormDialog extends StatefulWidget {
+  final Map<String, dynamic>? existing;
+
+  const StudentFormDialog({
+    super.key,
+    this.existing,
+  });
+
+  @override
+  State<StudentFormDialog> createState() =>
+      _StudentFormDialogState();
+}
+
+class _StudentFormDialogState extends State<StudentFormDialog> {
+  final formKey = GlobalKey<FormState>();
+
+  late final TextEditingController nameController;
+  late final TextEditingController rollController;
+  late final TextEditingController courseController;
+  late final TextEditingController emailController;
+
+  @override
+  void initState() {
+    super.initState();
+
+    nameController = TextEditingController(
+      text: widget.existing?['name']?.toString() ?? '',
+    );
+
+    rollController = TextEditingController(
+      text: widget.existing?['rollNo']?.toString() ?? '',
+    );
+
+    courseController = TextEditingController(
+      text: widget.existing?['course']?.toString() ?? '',
+    );
+
+    emailController = TextEditingController(
+      text: widget.existing?['email']?.toString() ?? '',
+    );
+  }
+
+  @override
+  void dispose() {
+    nameController.dispose();
+    rollController.dispose();
+    courseController.dispose();
+    emailController.dispose();
+
+    super.dispose();
+  }
+
+  void saveStudent() {
+    if (formKey.currentState!.validate()) {
+      Navigator.pop(context, {
+        'name': nameController.text.trim(),
+        'rollNo': rollController.text.trim(),
+        'course': courseController.text.trim(),
+        'email': emailController.text.trim(),
+      });
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return AlertDialog(
+      title: Text(
+        widget.existing == null ? 'Add Student' : 'Edit Student',
+      ),
+      content: SingleChildScrollView(
+        child: Form(
+          key: formKey,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              TextFormField(
+                controller: nameController,
+                decoration: const InputDecoration(
+                  labelText: 'Student Name',
+                  prefixIcon: Icon(Icons.person),
+                ),
+                validator: (value) =>
+                    value == null || value.trim().isEmpty
+                        ? 'Enter student name'
+                        : null,
+              ),
+
+              TextFormField(
+                controller: rollController,
+                keyboardType: TextInputType.number,
+                decoration: const InputDecoration(
+                  labelText: 'Roll Number',
+                  prefixIcon: Icon(Icons.numbers),
+                ),
+                validator: (value) =>
+                    value == null || value.trim().isEmpty
+                        ? 'Enter roll number'
+                        : null,
+              ),
+
+              TextFormField(
+                controller: courseController,
+                decoration: const InputDecoration(
+                  labelText: 'Course',
+                  prefixIcon: Icon(Icons.school),
+                ),
+                validator: (value) =>
+                    value == null || value.trim().isEmpty
+                        ? 'Enter course'
+                        : null,
+              ),
+
+              TextFormField(
+                controller: emailController,
+                keyboardType: TextInputType.emailAddress,
+                decoration: const InputDecoration(
+                  labelText: 'Email',
+                  prefixIcon: Icon(Icons.email),
+                ),
+                validator: (value) {
+                  if (value == null ||
+                      !RegExp(r'^[^@\s]+@[^@\s]+\.[^@\s]+$')
+                          .hasMatch(value.trim())) {
+                    return 'Enter a valid email';
+                  }
+                  return null;
+                },
+              ),
+            ],
+          ),
+        ),
+      ),
+      actions: [
+        TextButton(
+          onPressed: () => Navigator.pop(context),
+          child: const Text('Cancel'),
+        ),
+        ElevatedButton(
+          onPressed: saveStudent,
+          child: const Text('Save'),
+        ),
+      ],
+    );
+  }
 }
