@@ -6,6 +6,10 @@ First download firebase CLI from official webiste:
 
 https://firebase.google.com/docs/cli#install-cli-windows
 
+https://console.firebase.google.com/
+
+https://firebase.google.com/docs/flutter/setup
+
 **Type these commands in terminal of Visual studio software**
 
 1. flutter create student_management
