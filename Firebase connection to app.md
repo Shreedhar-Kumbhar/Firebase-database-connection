@@ -2,6 +2,10 @@
 
 A simple Flutter application connected to Firebase Realtime Database to perform student record management (Add, View, Update, and Delete).
 
+First download firebase CLI from official webiste:
+
+https://firebase.google.com/docs/cli#install-cli-windows
+
 **Type these commands in terminal of Visual studio software**
 
 1. flutter create student_management
